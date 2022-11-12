@@ -1,7 +1,7 @@
 div.container {
     display: grid;
-    grid-template-columns: 400px 400px 400px;
-    grid-template-rows: 1fr .5fr 1000px 400px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr .5fr 3fr 1fr;
     column-gap: 5%;
     grid-template-areas: 
     "header header header"
@@ -32,7 +32,7 @@ footer {
     border-radius: 20%;
     background: #cccf14;
     color:white;
-    font-size:4rem;
+    font-size:2.5rem;
     padding-left:15%;
     padding-right:15%;
     padding-top:5%;
@@ -41,7 +41,7 @@ footer {
 }
 
 header .button {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     background: #ffde59;
     color:black;
     padding-left:10%;
@@ -59,7 +59,7 @@ header .button {
 
 header {
    grid-area: header;
-   background-color: aqua;
+   background-color: darkgreen;
    display:flex;
    justify-content: space-between;
    flex-direction: row;
@@ -95,7 +95,7 @@ div.w-24.rounded-full.ring.ring-primary.ring-offset-base-100.ring-offset-2{
 nav {
     grid-area: nav;
     padding-right:5%;
-    padding-left:35%;
+    padding-left:60%;
     padding-top:2%;
     padding-bottom:2%;
 }
@@ -108,7 +108,7 @@ nav ul {
 nav li {
     list-style-type: none;
     float: left;
-    font-size: 4rem;
+    font-size: 2rem;
 }
 
 /* SIDE BAR */

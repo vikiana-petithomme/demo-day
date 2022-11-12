@@ -1,17 +1,20 @@
-//const trash = document.getElementsByClassName("fa-trash-o")
+/*const trash = document.getElementsByClassName("fa-trash-o")*/
 
-const addButton = document.getElementById('addProposal')
+alert('hello world')
+
+const addButton = document.querySelector('#addProposal')
+
+console.log(addButton)
 
 addButton.addEventListener('click', createProposal)
 
 function createProposal(){
   console.log('hi')
-  const createProposal = document.getElementById('createProposal')
-
-  console.log(createProposal)
-  createProposal.classList.toggle('hide')
+  const createProposalForm = document.getElementById('createProposal')
+  createProposalForm.classList.toggle('hidden')
 }
 
+/*
 Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){
         const name = this.parentNode.parentNode.childNodes[1].innerText
@@ -30,3 +33,4 @@ Array.from(trash).forEach(function(element) {
         })
       });
 });
+*/
