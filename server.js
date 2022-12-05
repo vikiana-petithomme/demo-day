@@ -1,55 +1,73 @@
-// server.js
-
-// set up ======================================================================
-// get all the  rtools we need
-var express  = require('express');
-var app      = express();
-var port     = process.env.PORT || 8080;
-const MongoClient = require('mongodb').MongoClient
-var mongoose = require('mongoose');
-var passport = require('passport');
-var flash    = require('connect-flash');
-
-var morgan       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
-
-var configDB = require('./config/database.js');
-
-var db 
-// configuration ===============================================================
+const express = require("express");
+const app = express();  // tells you the app will be in express and refers to the express files 
+const mongoose = require("mongoose"); // as opposed to inteeracting with the raw MongoDB, allows you to do more
+const passport = require("passport");  // for authorization 
+const session = require("express-session"); 
+const MongoStore = require("connect-mongo")(session); // to allow users to tay signed in even when they close the browser. Logs the session into the database
+const methodOverride = require("method-override"); 
+const flash = require("express-flash"); // notifications for eroors
+const logger = require("morgan");
+const connectDB = require("./config/database");// need all your files to configure the databade
+const mainRoutes = require("./routes/main");
+const proposalRoutes = require("./routes/proposals");
+const commentRoutes = require("./routes/comments")
+const userRoutes = require("./routes/users")
+const communityRoutes = require("./routes/communities")
+const conversationRoutes = require("./routes/conversations")
 
 
-mongoose.connect(configDB.url, (err, database) => {
-  if (err) return console.log(err)
-  db = database
-  require('./app/routes.js')(app, passport, db);
-}); // connect to our database
+//Use .env file in config folder
+require("dotenv").config({ path: "./config/.env" });
 
-require('./config/passport')(passport); // pass passport for configuration
+// Passport config
+require("./config/passport")(passport); // returns a function that you are passing a parameter into 
 
-// set up our express application
-app.use(morgan('dev')); // log every request to the console
-app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser.json()); // get information from html forms
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'))
+//Connect To Database
+connectDB(); // tell the database to run 
 
+//Using EJS for views
+app.set("view engine", "ejs");
 
-app.set('view engine', 'ejs'); // set up ejs for templating
+//Static Folder
+app.use(express.static("public")); // to serve the contents of the public folder without needing individual routes for them. 
 
-// required for passport
-app.use(session({
-    secret: 'rcbootcamp2021b', // session secret
-    resave: true,
-    saveUninitialized: true
-}));
+//Body Parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+//Logging
+app.use(logger("dev"));
+
+//Use forms for put / delete
+app.use(methodOverride("_method"));
+
+// Setup Sessions - stored in MongoDB -- to say that the user can get back in anytime as long as this is true 
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  })
+);
+
+// Passport middleware
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(passport.session());
+
+//Use flash messages for errors, info, ect...
+app.use(flash());
+
+//Setup Routes For Which The Server Is Listening
+app.use("/", mainRoutes);
+app.use("/proposal", proposalRoutes);
+app.use("/comment", commentRoutes);
+app.use("/users", userRoutes);
+app.use("/communities", communityRoutes);
+app.use("/conversations", conversationRoutes);
 
 
-// launch ======================================================================
-app.listen(port);
-console.log('The magic happens on port ' + port);
+//Server Running
+app.listen(process.env.PORT, () => {
+  console.log("Server is running, you better catch it!");
+});

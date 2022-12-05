@@ -1,0 +1,43 @@
+<%- include('partials/head') -%>
+<%- include('partials/header') -%>
+<div class="fullProposal">
+    <section id="fullPropInfo">
+      <img src="<%=proposal.image%>">
+      <h3 id="propName"><%=proposal.name%></h3>
+      <span ><%=proposal.blurb%></span>
+      <h5>Why is this proposal idea important?</h5>
+      <span><%=proposal.impact%></span>
+      <h5>Stakeholders</h5>
+      <span><%=proposal.partners%></span>
+      <h5>Full Description</h5>
+      <span><%=proposal.description%></span>
+      <h5>Additional Information</h5>
+
+      <section id="propComments">
+        <h5>Comments</h5>
+      </section>
+
+    </section>
+    <section id="propSidebar">
+      <!-- LIKE BUTTON -->
+      <form action="/proposal/likeProposal/<%=proposal._id%>?_method=PUT"  method="POST" class="voting">
+        <button id="upVote" class="material-symbols-outlined"> favorite </button>
+      </form>
+      <section id="propSettings">
+        <!-- PROP COST -->
+        <h4 id="propCost">$<%=proposal.cost%></h4>
+        <!-- PROP # OF LIKES -->
+        <span id="numLikes"><%=proposal.likes%> VOTES</span>
+        <!-- CREATED AT -->
+        <span id="dateCreated"><%=proposal.createdAt%></span>
+        
+        <!-- PROP CATEGORY-->
+        <h4 id="propCategory"><%=proposal.category%></h4>
+        <!-- AUTHOR -->
+        <span id="author"><%=proposal.author%></span>
+        <!-- COMMENT BUTTON -->
+      </section>
+
+    </section>
+</div>
+<%- include('partials/footer') -%>
