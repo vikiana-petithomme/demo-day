@@ -13,7 +13,22 @@ module.exports = {
 
       });
       console.log("Comment has been added!");
-      res.redirect(`/post/${req.params.id}`);
+      var myHeaders = new Headers();
+      myHeaders.append("Api-Key", "9c28a667d4b499b4305140da127b26603b9ceecc40ff078bcbbca80a84ba8db9");
+      myHeaders.append("Api-Username", "system");
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+      fetch(`https://concur.discourse.group/posts.json?raw=${req.body.commentText}?embed_url=`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          console.log(result)
+          res.redirect("/home");
+        })
+        .catch(error => console.log('error', error));
     } catch (err) {
       console.log(err);
     }
