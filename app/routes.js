@@ -7,10 +7,37 @@ module.exports = function (app, passport, db) {
     res.render('index.ejs');
   });
 
+<<<<<<< HEAD
   // PROFILE SECTION =========================
   app.get('/profile', isLoggedIn, function (req, res) {
     db.collection('proposals').find().toArray((err, result) => {
       db.collection('category').find().toArray((err, result2) => {
+=======
+    // PROFILE SECTION =========================
+    app.get('/profile', isLoggedIn, function(req, res) {
+        db.collection('proposals').find().toArray((err, result) => {
+        db.collection('category').find().toArray((err, result2) => {
+          if (err) return console.log(err)
+          res.render('profile.ejs', {
+            user : req.user,
+            proposals: result,
+            category: result2
+          }) 
+        })
+       })
+      })
+
+    // LOGOUT ==============================
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+
+// message board routes ===============================================================
+
+    app.post('/profile', (req, res) => {
+      db.collection('proposals').save({name:req.body.proposalName, cost: req.body.cost, impact: req.body.impact, stakeholders:req.body.partners, blurb: req.body.blurb, description: req.body.description, author: req.body.name, }, (err, result) => {
+>>>>>>> 9f0249577f0f44511e45cad803d892d671467398
         if (err) return console.log(err)
         res.render('profile.ejs', {
           user: req.user,
@@ -92,12 +119,21 @@ module.exports = function (app, passport, db) {
   // AUTHENTICATE (FIRST LOGIN) ==================================================
   // =============================================================================
 
+<<<<<<< HEAD
   // locally --------------------------------
   // LOGIN ===============================
   // show the login form
   app.get('/login', function (req, res) {
     res.render('login.ejs', { message: req.flash('loginMessage') });
   });
+=======
+    // locally --------------------------------
+        // LOGIN ===============================
+        // show the login form
+        app.get('/login', function(req, res) {
+            res.render('login.ejs', { message: req.flash('loginMessage') });
+        });
+>>>>>>> 9f0249577f0f44511e45cad803d892d671467398
 
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
@@ -106,11 +142,19 @@ module.exports = function (app, passport, db) {
     failureFlash: true // allow flash messages
   }));
 
+<<<<<<< HEAD
   // SIGNUP =================================
   // show the signup form
   app.get('/signup', function (req, res) {
     res.render('signup.ejs', { message: req.flash('signupMessage') });
   });
+=======
+        // SIGNUP =================================
+        // show the signup form
+        app.get('/signup', function(req, res) {
+            res.render('signup.ejs', { message: req.flash('signupMessage') });
+        });
+>>>>>>> 9f0249577f0f44511e45cad803d892d671467398
 
   // process the signup form
   app.post('/signup', passport.authenticate('local-signup', {
