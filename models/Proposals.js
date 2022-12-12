@@ -14,10 +14,11 @@ const ProposalSchema = new mongoose.Schema({
     required: true,
   },
   additionalMaterials: {
-    type: String,
-    require: true,
+    type: [{public_id: String, fileType:String, resourceType:String, url: String}],
+    required: false,
+
   },
-  cloudinaryId: {
+  imgCloudinaryId: {
     type: String,
     require: true,
   },
@@ -53,6 +54,6 @@ const ProposalSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+},{timestamps:true});
 
 module.exports = mongoose.model("Proposal", ProposalSchema);

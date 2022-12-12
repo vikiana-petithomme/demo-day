@@ -19,7 +19,7 @@ const CommentSchema = new mongoose.Schema({
   },
   commentFor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Post"
+    ref: "Proposal"
   }
 });
 

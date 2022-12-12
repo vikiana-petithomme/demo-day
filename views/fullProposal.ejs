@@ -2,8 +2,8 @@
 <%- include('partials/header') -%>
 <div class="fullProposal">
     <section id="fullPropInfo">
-      <img src="<%=proposal.image%>">
-      <h3 id="propName"><%=proposal.name%></h3>
+      <img id="fullPropImg" src="<%=proposal.image%>">
+      <h3 id="propName"><%=proposal.name.toUpperCase()%></h3>
       <span ><%=proposal.blurb%></span>
       <h5>Why is this proposal idea important?</h5>
       <span><%=proposal.impact%></span>
@@ -12,9 +12,33 @@
       <h5>Full Description</h5>
       <span><%=proposal.description%></span>
       <h5>Additional Information</h5>
+      <% for(let i=0;i < proposal.additionalMaterials.length;i++){%>
+        <a id="downloadFile" class="filePreview" href="<%=proposal.additionalMaterials[i].url%>" download>
+          <% if(proposal.additionalMaterials[i].resourceType === 'image'){ %>
+            <img src="<%=proposal.additionalMaterials[i].url%>">
+          <% } else { %>
+            <button class="button" id="btnPreview" value="Preview PDF Document" onclick="LoadPdfFromUrl('PDFs/Sample.pdf')">
+              <i class="fa-solid fa-file-pdf"></i>
+            </button>
+            <div id="pdf_container"></div>
+
+          <% } %>
+        </a>
+      <%}%>
 
       <section id="propComments">
         <h5>Comments</h5>
+        <% if (comments.length === 0 ) { %>
+         <p> Be the first one to comment.</p>
+        <% } %>
+        <ul class="comments">
+          <% for(let i=0; i<comments.length; i++) %> 
+          <li class="comment">
+            <a href="#" title="View this user profile" class="photo"><img src="https://placehold.it/32x32" alt="Kasper"></a>
+            <div class="meta">Kasper | 2012.07.24 14:58 <a class="reply">Reply</a></div>
+            <div class="body"><%=comments[i].text%></div>
+          </li>
+        </ul>
       </section>
 
     </section>
@@ -28,16 +52,33 @@
         <h4 id="propCost">$<%=proposal.cost%></h4>
         <!-- PROP # OF LIKES -->
         <span id="numLikes"><%=proposal.likes%> VOTES</span>
-        <!-- CREATED AT -->
-        <span id="dateCreated"><%=proposal.createdAt%></span>
-        
+        <!-- CREATED AT -->        
         <!-- PROP CATEGORY-->
-        <h4 id="propCategory"><%=proposal.category%></h4>
-        <!-- AUTHOR -->
-        <span id="author"><%=proposal.author%></span>
+        <h4 id="propCategory">Category: <%=proposal.category%></h4>
+        
         <!-- COMMENT BUTTON -->
       </section>
+      <section class="aboutAuthor">
+        <!-- ABOUT THE AUTHOR -->
+        <h5 id="authorSec">AUTHOR</h5>
+        <section class="authorWidget">
+          <a class="publicProfile" href="../users/public/<%=author.id%>">
+            <div class="avatar">
+              <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img src="<%=author.avatar%>" />
+            </div>
+            </div>
+          </a>
+          <span id="authorUsername"><%=author.userName%></span>
+        </section>
+        <span id="author"><%=author.fullName%></span>
+        <span id="authorLocation"><%=author.location%></span>
+        <span id="authorWeb"><%=author.website%></span>
+        <span id="authorBio"><%=author.bio%></span>
+        
+      </section>
 
+      </section>
     </section>
 </div>
 <%- include('partials/footer') -%>

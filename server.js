@@ -14,6 +14,12 @@ const commentRoutes = require("./routes/comments")
 const userRoutes = require("./routes/users")
 const communityRoutes = require("./routes/communities")
 const conversationRoutes = require("./routes/conversations")
+//const fileupload = require('express-fileupload'); 
+var bodyParser = require('body-parser')
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+//pp.use(fileupload({useTempFiles: true}))
 
 
 //Use .env file in config folder
@@ -51,12 +57,16 @@ app.use(
   })
 );
 
+
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
 //Use flash messages for errors, info, ect...
 app.use(flash());
+
+app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
@@ -71,3 +81,8 @@ app.use("/conversations", conversationRoutes);
 app.listen(process.env.PORT, () => {
   console.log("Server is running, you better catch it!");
 });
+
+exports = module.exports = function(app) {
+  
+  
+};

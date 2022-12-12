@@ -1,0 +1,43 @@
+footer ul{
+    width:100%;
+    padding-left:0px;
+}
+
+footer ul.links li{
+    list-style-type: none;
+    text-align: center;
+    width:100%;
+    margin-bottom:2%;
+    font-size:2rem;
+}
+footer ul.links li a {
+    color: white;
+    text-decoration: none;
+
+}
+
+footer h5.columnTitle {
+    color:white;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size:1.5rem;
+}
+
+footer div.row{
+    display:flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap ;
+}
+
+footer div.column {
+    width:33%;
+    margin-bottom:2%;
+}
+
+footer div.copyright{
+    background-color: rgb(201, 243, 96);
+    padding:1%;
+    text-align: center;
+    font-size:1.5rem;
+}

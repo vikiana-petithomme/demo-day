@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../middleware/multer");
 const communitiesController = require("../controllers/communities");
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 

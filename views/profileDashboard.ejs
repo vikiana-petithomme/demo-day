@@ -2,52 +2,139 @@
 <%- include('partials/header') -%>
 <div class="mainProfile">
     <section class="sidebar">
-        <span>PROFILE</span>
-        <span>COMMUNITIES</span>
+        <span class="profNav profile">PROFILE</span>
+        <!--<span class="profNav communities">COMMUNITIES</span>
             <ul>
                 <li>MY COMMUNITIES</li>
                 <li>START A COMMUNITY</li>
-            </ul>   
+            </ul> -->
 
-        <span>PROPOSALS</span>
+     <span class="profNav proposals">PROPOSALS</span>
             <ul>
                 <li>MY PROPOSALS</li>
                 <li>LIKED PROPOSALS</li>
-            </ul>
+            </ul> 
     </section>
     <section class="userIDCard">
+        <div  id="<%=user.id%>" class="profileAvatar">
+            <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img id="avatar" src="<%=user.avatar%>" />
+            </div>
+        </div>
+        <section class="profileID">
+            <span><p id="user-name"><%=user.fullName.toUpperCase()%></p></span>
+            <h3 id="username"><%=user.userName%></h3>
+            <span class="userInfo" id="userID">User#<%=user.id%></span>
+            <span></span>
+            <form action="/users/changeAvatar/<%=user.id%>?_method=PUT" enctype='multipart/form-data' name="newAvatar" method="POST">
+                <button class="button" id="OpenImgUpload">Upload New Profile Image</button>
+                <input type="file" id="imgupload" name="avatar" /> 
+                <button id="avatarSave" class="small button" ="submit">Save</button>
+            </form>
+            <% if( !(user.DOB == null) ||  !(user.DOB == undefined)){%>
+                <span class="userInfo" id="userDOB">Date of Birth: <%=user.DOB%></span>
+            <% } %> 
+            <% if( !(user.location == null) ||  !(user.location == undefined)){%>
+                <span class="userInfo"id="userLoc">Location: <%=user.location%><i class="fa-solid fa-pen"></i></span> 
+            <% } %> 
+            <% if( !(user.website == null) ||  !(user.wesbite == undefined)){%>
+                <span class="userInfo"id="sharedWedbsite">Website: <%=user.website%><i class="fa-solid fa-pen"></i></span> 
+                
+            <% } %>
+            <% if( !(user.bio == null) ||  !(user.bio == undefined)){%>
+                <span class="userInfo"id="userBio">Bio: <%=user.bio%><i class="fa-solid fa-pen"></i></span> 
+                
+            <% } %> 
 
+        </section>
+            
     </section>
-    <section class="accordion">
-    
-        <div class="item">
+
+    <section class="editProfile">
+        <section class="extraInfo">
+            <form action="/users/updateUser/<%=user.id%>?_method=put" name="newAvatar" method="POST" id="addProfileDetails">
+                <% if( user.DOB == null ||  user.DOB == undefined){%>
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="DOB">
+                <% } %> 
+                <% if( user.location == null ||  user.location == undefined){%>
+                    <label for="location" id="locLabel">Homebase</label>
+                    <input type="text" id="location" name="location" placeholder="City, State">
+                <% } %> 
+                <% if( user.website == null ||  user.website == undefined){%>
+                    <label id="webLabel" for="userWeb">Website</label>
+                    <input type="url" id="userWeb" name="website" placeholder="Website Link">
+                <% } %> 
+                <% if( user.bio == null ||  user.bio == undefined){%>
+                    <label id="bio" for="bioText">Bio</label>
+                    <textarea type="text" id="bioText" name="bio" placeholder="Tell us a little bit about yourself"></textarea>
+                <% } %> 
+                <% if( user.length < 12){%>
+                    <button class="button" id="editProfBtn" type="submit">Save</button>
+                <% } %> 
+            </form>        
+        </section>
+        <form class="passwordReset" action="/users/newPassword/<%=user.id%>?_method=PUT" method="POST" >
+        <span  id="newPW" class="sectionTitle"> Update Your Password</span>
+
+            <input type="password" id="oldPassword" placeholder="Old Password">
+            <input type="password" id="newPassword" placeholder="New Password" name="newPassword">
+            <input type="password" id="comfirmPassword" placeholder="Confirm New Password">
+            <button class="small button"type="submit">Change Password</button>
+        </form>
+    </section>
+    <section class="myProposals hidden">
+        <h5>MY PROPOSALS</h5>
+        <% for( let i = 0; i < proposals.length; i++ ) { %>
+                <section class="proposal" >
+                    <section class="details">
+                      <h3 id="title"><%=proposals[i].name.toUpperCase()%></h3>
+                      <span id="cost">$<%=proposals[i].cost%></span>
+                      <span id="shortDes"><%=proposals[i].blurb%></span>
+                      <a href="/proposal/<%=proposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
+                  </section>
+                  <form action="/proposal/likeProposal/<%=proposals[i]._id%>?_method=PUT"  method="POST" class="voting">
+                    <button  id="upVote" class="material-symbols-outlined"> favorite </button>
+                    <span id="numLikes"><%=proposals[i].likes%></span>
+                  </form>
+                  
+              </section>
+        <% } %>
+    </section>
+    <section class="likedProposals hidden">
+        
+    </section>
+    <section class="createCommunity hidden">
+        <form action="/communities/createCommunity" method="POST" enctype='multipart/form-data'>
+            <input type="text" placeholder="Community Name" name="cName">
+            <input type="text" placeholder="Location" name="cLocation">
+            <input type="file" name="cImage">
+            <input type="text" placeholder="Mission Statement" name="cMission">
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    <section class="accordion hidden">
             <div class="communityID">
                 <img src="https://f9ir.github.io/acc/acc/img/Location-Pin.png" alt="">
                 <h3>Location</h3>
             </div>
-            <div class="communityStats">
-                <p class>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
+            <section class="communityStats">
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
+            </section>
+            <div class="communityID">
+                <img src="https://f9ir.github.io/acc/acc/img/Location-Pin.png" alt="">
+                <h3>Location</h3>
             </div>
-         </div>
-         <div class="item">
-             <img src="https://f9ir.github.io/acc/acc/img/Headphones.png" alt="">
-             <h3>Music</h3>
-        </div>
-         <p>t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
-         <div class="item">
-             <img src="https://f9ir.github.io/acc/acc/img/Lightbulb.png" alt="">
-             <h3>Notes</h3>
-        </div>
-             <p>t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
-        <!-- <div class="item">
-             <img src="https://f9ir.github.io/acc/acc/img/Bookmarks.png" alt="">
-             <h3>Books</h3>
-        </div>
-             <p>t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
-         <div class="item">
-             <img src="https://f9ir.github.io/acc/acc/img/Lightning-Bolt.png" alt="">
-             <h3>Tendances</h3>
-        </div>
-            <p>t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p> -->
+            <section class="communityStats">
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
+            </section>
+            <div class="communityID">
+                <img src="https://f9ir.github.io/acc/acc/img/Location-Pin.png" alt="">
+                <h3>Location</h3>
+            </div>
+            <section class="communityStats">
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
+            </section>
     </section>
 </div>
+<%- include('partials/footer') -%>

@@ -1,4 +1,7 @@
-/* LOGIN FORM */
+/*
+		Designed by: SELECTO
+		Original image: https://dribbble.com/shots/5311359-Diprella-Login
+*/
 
 let switchCtn = document.querySelector("#switch-cnt");
 let switchC1 = document.querySelector("#switch-c1");
@@ -9,11 +12,10 @@ let aContainer = document.querySelector("#a-container");
 let bContainer = document.querySelector("#b-container");
 let allButtons = document.querySelectorAll(".submit");
 
-console.log('this is the switch button: '+ switchBtn)
 let getButtons = (e) => e.preventDefault()
 
 let changeForm = (e) => {
-    console.log('switch activated')
+   console
     switchCtn.classList.add("is-gx");
     setTimeout(function(){
         switchCtn.classList.remove("is-gx");
@@ -31,65 +33,134 @@ let changeForm = (e) => {
 }
 
 let mainF = (e) => {
-    for (var i = 0; i < allButtons.length; i++)
-        allButtons[i].addEventListener("click", getButtons );
+   /* for (var i = 0; i < allButtons.length; i++)
+        allButtons[i].addEventListener("click", getButtons );*/
     for (var i = 0; i < switchBtn.length; i++)
         switchBtn[i].addEventListener("click", changeForm)
 }
 
-window.addEventListener("load", mainF);
-
-
+  window.addEventListener("load", mainF);
+ 
 /* CREATE PROPOSAL FORM TOGGLE */
 
-console.log(document.querySelector('#addProposal'))
+ console.log()
 
-const addButton = document.querySelector('#addProposal')
+ const addButton = document.querySelector('#addProposal')
 
-console.log(addButton)
+ console.log(addButton)
 
-addButton.addEventListener('click', createProposal)
+ addButton.addEventListener('click', createProposal)
 
-function createProposal(){
-  console.log('hi')
-  const createProposalForm = document.getElementById('createProposal')
-  const submittedProposals = document.getElementById('submittedProposals')
-  createProposalForm.classList.toggle('hidden')
-  submittedProposals.classList.toggle('hidden')
+ function createProposal(){
+   console.log('hi')
+   const createProposalForm = document.getElementById('createProposal')
+   const submittedProposals = document.getElementById('submittedProposals')
+   createProposalForm.classList.toggle('hidden')
+   submittedProposals.classList.toggle('hidden')
 
+ }
+/*
+ const fileInput = document.getElementById('extraMtrls')
+
+ let fileList = [ ]
+
+ fileInput.addEventListener('change', function(evnt){
+  fileList = []
+  for(let i=0; i < fileInput.files.length; i++){
+    fileList.push(fileInput.files[i])
+  }
+ })*/
+
+ 
+
+/*fileCatcher.addEventListener('submit', function(evnt){
+  console.log(fileList)
+  fileList.forEach(function(file)
+  {
+    sendFile(file)
+})
+})
+
+sendFile = function(file){
+  var formData = new FormData()
+  var request = new XHLHttpRequest()
+
+  formData.set('file', file)
+  request.open('POST','proposal/createProposal' )
+  request.send(formData)
+}*/
+
+// preview proposal thumbnail pic
+let setPropImg =  document.getElementById('imageUpload')
+
+setPropImg.onchange = e => {
+  previewFile()
+} 
+
+
+let addSupplements =  document.getElementById('extraMtrls')
+
+addSupplements.onchange = e => {
+  var file    = addSupplements.files[0];
+  var reader  = new FileReader();
+
+  reader.onloadend = function () {
+    let fileSize = (file.size)
+    let fileName = (file.name)
+    let fileType = (file.type)
+      if (fileSize > (1024 * 1024 * 10)){
+        placeErrMsg.style.color = 'red'
+        placeErrMsg.innerText= `"${fileName}" TOO LARGE. MAX FILE SIZE: 10MB`
+      } else if (!(
+        fileType === 'application/pdf' ||
+        fileType === 'application/msword' ||
+        fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+        fileType === 'image/png' ||
+        fileType === 'image/jpg' ||
+        fileType === 'image/jpeg')){
+          placeErrMsg.style.color = 'red'
+          placeErrMsg.innerText= `CANNOT UPLOAD "${fileName}". ACCEPTED FILE TYPES: png, jpeg, jpg, pdf, doc, or docx`
+      } else {
+        placeErrMsg.style.color = '#006400'
+        placeErrMsg.innerText= 'MAX FILE SIZE: 10MB'
+      }
+} 
 }
 
-/* COMMUNITY ID CARD ACCORDION*/
 
-  Array.from(document.getElementsByClassName('communityID')).forEach(item => {
-    item.addEventListener('click', toggleAccordion)
-    console.log('this is a card: '+ item)
-  })
+function previewFile() {
+  var preview = document.querySelector('#propImgPreview');
+  var file    = document.querySelector('#imageUpload').files[0];
+  var reader  = new FileReader();
+  reader.onloadend = function () {
+    preview.src = reader.result;
+      let fileSize = (file.size)
+      let fileName = (file.name)
+      let fileType = (file.type)
 
-  function toggleAccordion(){
-    console.log('you clicked one of the cards')
+      let placeErrMsg = document.getElementById('upldErrMsg')
 
-    this.nextElementSibling.slideToggle(100);
-    document.getElementsByClassName('communityStats').not(this.nextElementSibling).slideUp('fast');
+      if (fileSize > (1024 * 1024 * 10)){
+  
+        placeErrMsg.style.color = 'red'
+        placeErrMsg.innerText= `"${fileName}" IMG TOO LARGE. MAX FILE SIZE: 10MB`
+        
+      } else if (!(
+        fileType === 'image/png' ||
+        fileType === 'image/jpg' ||
+        fileType === 'image/jpeg')){
+          placeErrMsg.style.color = 'red'
+          placeErrMsg.innerText= `CANNOT UPLOAD "${fileName}". ACCEPTED FILE TYPES: png, jpeg, or jpg`
+      } else {
+        placeErrMsg.style.color = '#006400'
+        placeErrMsg.innerText= 'MAX FILE SIZE: 10MB'
+      }
+    
   }
 
-/*
-Array.from(trash).forEach(function(element) {
-      element.addEventListener('click', function(){
-        const name = this.parentNode.parentNode.childNodes[1].innerText
-        const msg = this.parentNode.parentNode.childNodes[3].innerText
-        fetch('trash', {
-          method: 'delete',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            'name': name,
-            'msg': msg
-          })
-        }).then(function (response) {
-          window.location.reload()
-        })
-      });
-});
-*/
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = "";
+  }
+}

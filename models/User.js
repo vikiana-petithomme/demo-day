@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
   fullName: { 
@@ -16,11 +18,15 @@ const UserSchema = new mongoose.Schema({
     unique: true, 
     required: true
   },
+  avatar: {
+    type: String,
+    required: false
+  },
   password:{ 
     type: String, 
     required: true 
   },
-  tables:{ 
+  communities:{ 
     type: Array, 
     required: false 
   },
@@ -28,7 +34,28 @@ const UserSchema = new mongoose.Schema({
     type: String, 
     required: false 
   },
-});
+  location:{ 
+    type: String, 
+    required: false 
+  },
+  website:{ 
+    type: String, 
+    required: false 
+  },
+  DOB:{ 
+    type: Date, 
+    required: false
+  },
+  resetPasswordToken: {
+    type: String,
+    required: false
+},
+
+resetPasswordExpires: {
+    type: Date,
+    required: false
+},
+}, {timestamps: true});
 
 // Password hash middleware.
 
@@ -61,5 +88,30 @@ UserSchema.methods.comparePassword = function comparePassword(
     cb(err, isMatch);
   });
 };
+
+UserSchema.methods.generateJWT = function() {
+  const today = new Date();
+  const expirationDate = new Date(today);
+  expirationDate.setDate(today.getDate() + 60);
+
+  let payload = {
+      id: this._id,
+      email: this.email,
+      username: this.userName,
+      fullName: this.fullName,
+      
+  };
+
+  return jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: parseInt(expirationDate.getTime() / 1000, 10)
+  });
+};
+
+UserSchema.methods.generatePasswordReset = function() {
+  this.resetPasswordToken = crypto.randomBytes(20).toString('hex');
+  this.resetPasswordExpires = Date.now() + 3600000; //expires in an hour
+};
+
+mongoose.set('useFindAndModify', false);
 
 module.exports = mongoose.model("User", UserSchema);
