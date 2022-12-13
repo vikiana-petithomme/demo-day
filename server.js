@@ -14,6 +14,7 @@ const commentRoutes = require("./routes/comments")
 const userRoutes = require("./routes/users")
 const communityRoutes = require("./routes/communities")
 const conversationRoutes = require("./routes/conversations")
+const categoryRoutes = require("./routes/Category")
 //const fileupload = require('express-fileupload'); 
 var bodyParser = require('body-parser')
 
@@ -71,10 +72,11 @@ app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
 app.use("/proposal", proposalRoutes);
-app.use("/comment", commentRoutes);
+app.use("/comments", commentRoutes);
 app.use("/users", userRoutes);
 app.use("/communities", communityRoutes);
 app.use("/conversations", conversationRoutes);
+app.use("/categories", categoryRoutes);
 
 
 //Server Running

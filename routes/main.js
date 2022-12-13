@@ -7,9 +7,11 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 const {check} = require('express-validator');
 
 
+
 //Main Routes - simplified for now
 router.get("/", homeController.getIndex);
 router.get("/home", ensureAuth, proposalController.getProposals);
+router.get("/home/top", ensureAuth, proposalController.getTopProposals);
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);

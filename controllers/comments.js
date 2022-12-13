@@ -22,11 +22,11 @@ module.exports = {
         headers: myHeaders,
         redirect: 'follow'
       };
-      fetch(`https://concur.discourse.group/posts.json?raw=${req.body.commentText}?embed_url=`, requestOptions)
+      fetch(`https://concur.discourse.group/posts.json?title=${req.body.proposalName}raw=${req.body.commentText}?embed_url=`, requestOptions)
         .then(response => response.json())
         .then(result => {
           console.log(result)
-          res.redirect("/home");
+          res.redirect(`/proposal/${req.params.id}`);
         })
         .catch(error => console.log('error', error));
     } catch (err) {

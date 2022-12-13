@@ -31,17 +31,15 @@
                 <input type="file" id="imgupload" name="avatar" /> 
                 <button id="avatarSave" class="small button" ="submit">Save</button>
             </form>
-            <% if( !(user.DOB == null) ||  !(user.DOB == undefined)){%>
-                <span class="userInfo" id="userDOB">Date of Birth: <%=user.DOB%></span>
-            <% } %> 
-            <% if( !(user.location == null) ||  !(user.location == undefined)){%>
+            
+            <% if( !(user.location == "" || user.location == null ||  user.location == undefined)){%>
                 <span class="userInfo"id="userLoc">Location: <%=user.location%><i class="fa-solid fa-pen"></i></span> 
             <% } %> 
-            <% if( !(user.website == null) ||  !(user.wesbite == undefined)){%>
+            <% if( !(user.website == "" ||  user.website === null || user.wesbite == undefined)){%>
                 <span class="userInfo"id="sharedWedbsite">Website: <%=user.website%><i class="fa-solid fa-pen"></i></span> 
                 
             <% } %>
-            <% if( !(user.bio == null) ||  !(user.bio == undefined)){%>
+            <% if( !(user.DOB == "" || user.bio == null ||  user.bio == undefined)){%>
                 <span class="userInfo"id="userBio">Bio: <%=user.bio%><i class="fa-solid fa-pen"></i></span> 
                 
             <% } %> 
@@ -53,30 +51,32 @@
     <section class="editProfile">
         <section class="extraInfo">
             <form action="/users/updateUser/<%=user.id%>?_method=put" name="newAvatar" method="POST" id="addProfileDetails">
-                <h5 class="sectionTitle">FINISH PROFILE</h5>
-                <% if( user.DOB == null ||  user.DOB == undefined){%>
+                <h5 class="sectionTitle">Finish Your Profile</h5>
+
+                <% if( user.DOB == "" || user.DOB === null ||  user.DOB === undefined){%>
                     <label for="dob">Date of Birth</label>
                     <input type="date" id="dob" name="DOB">
                 <% } %> 
-                <% if( user.location == null ||  user.location == undefined){%>
-                    <label for="location" id="locLabel">Homebase</label>
+                <% if( user.location == "" || user.location === null ||  user.location === undefined){%>
+                    <label for="location" id="locLabel"><span class="material-symbols-outlined">
+                        location_on
+                        </span>Homebase</label>
                     <input type="text" id="location" name="location" placeholder="City, State">
                 <% } %> 
-                <% if( user.website == null ||  user.website == undefined){%>
+                <% if( user.website == "" || user.website === null ||  user.website === undefined){%>
                     <label id="webLabel" for="userWeb">Website</label>
                     <input type="url" id="userWeb" name="website" placeholder="Website Link">
                 <% } %> 
-                <% if( user.bio == null ||  user.bio == undefined){%>
+                <% if( user.bio == "" || user.bio === null ||  user.bio === undefined){%>
                     <label id="bio" for="bioText">Bio</label>
-                    <textarea type="text" id="bioText" name="bio" placeholder="Tell us a little bit about yourself"></textarea>
+                    <textarea type="text" id="bioText" name="bio" placeholder="Tell everyone a little bit about yourself!"></textarea>
                 <% } %> 
-                <% if( user.length < 12){%>
-                    <button class="button" id="editProfBtn" type="submit">Save</button>
-                <% } %> 
+                    <button class="small button" id="editProfBtn" type="submit"> Save </button>
+                       
             </form>        
         </section>
-        <form class="passwordReset" action="/users/newPassword/<%=user.id%>?_method=PUT" method="POST" >
-        <span  id="newPW" class="sectionTitle"> Update Your Password</span>
+        <form class="passwordReset" action="/users/newPassword/<%=user.id%>?_method=PUT" method="POST" id="newPWForm" >
+        <span  id="newPW" class="sectionTitle"> Choose a New Password</span>
 
             <input type="password" id="oldPassword" placeholder="Old Password">
             <input type="password" id="newPassword" placeholder="New Password" name="newPassword">
@@ -87,23 +87,36 @@
     <section class="myProposals hidden">
         <h5>MY PROPOSALS</h5>
         <% for( let i = 0; i < proposals.length; i++ ) { %>
-                <section class="proposal" >
-                    <section class="details">
-                      <h3 id="title"><%=proposals[i].name.toUpperCase()%></h3>
-                      <span id="cost">$<%=proposals[i].cost%></span>
-                      <span id="shortDes"><%=proposals[i].blurb%></span>
-                      <a href="/proposal/<%=proposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
-                  </section>
-                  <form action="/proposal/likeProposal/<%=proposals[i]._id%>?_method=PUT"  method="POST" class="voting">
+            <section class="proposal" >
+                <section class="details">
+                    <h3 id="title"><%=proposals[i].name.toUpperCase()%></h3>
+                    <span id="cost">$<%=proposals[i].cost%></span>
+                    <span id="shortDes"><%=proposals[i].blurb%></span>
+                    <a href="/proposal/<%=proposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
+                </section>
+                <form action="/proposal/likeProposal/<%=proposals[i]._id%>?_method=PUT"  method="POST" class="voting">
                     <button  id="upVote" class="material-symbols-outlined"> favorite </button>
                     <span id="numLikes"><%=proposals[i].likes%></span>
-                  </form>
-                  
+                </form>
               </section>
         <% } %>
     </section>
     <section class="likedProposals hidden">
-        
+        <h5 >LIKED PROPOSALS</h5>
+        <% for( let i = 0; i < likedProposals.length; i++ ) { %>
+            <section class="proposal" >
+                <section class="details">
+                    <h3 id="title"><%=likedProposals[i].name.toUpperCase()%></h3>
+                    <span id="cost">$<%=likedProposals[i].cost%></span>
+                    <span id="shortDes"><%=likedProposals[i].blurb%></span>
+                    <a href="/proposal/<%=likedProposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
+                </section>
+                <form action="/proposal/likeProposal/<%=likedProposals[i]._id%>?_method=PUT"  method="POST" class="voting">
+                    <button  id="upVote" class="material-symbols-outlined"> favorite </button>
+                    <span id="numLikes"><%=likedProposals[i].likes%></span>
+                </form>
+              </section>
+        <% } %>
     </section>
     <section class="createCommunity hidden">
         <form action="/communities/createCommunity" method="POST" enctype='multipart/form-data'>

@@ -46,6 +46,10 @@ const ProposalSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  supporters: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    required: false,
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

@@ -65,35 +65,39 @@
     console.log(fieldID)
     let userID = document.getElementById('avatar').parentElement.parentElement.getAttribute('id')
     if(fieldID === 'userBio'){
-        location.href = `/users/updateUser/resetUserBio/${userID}?_method=PUT`;
+        location.href = `/users/updateUser/resetUserBio/${userID}`;
     } else if(fieldID === 'userLoc'){
-      location.href = `/users/updateUser/resetLocation/${userID}?_method=PUT`;
+      location.href = `/users/updateUser/resetLocation/${userID}`;
       console.log('redirect')
     } else if(fieldID === 'sharedWebsite'){
-      location.href = `/users/updateUser/resetSharedSite/${userID}?_method=PUT`;
+      location.href = `/users/updateUser/resetSharedSite/${userID}`;
 
     }
   }
 
-  /* CHANGE PASSWORD*/
-  let newP=document.getElementById("newPassword").value;
-  let confirmP =document.getElementById("confirmPassword").value;
+  let editProfileSubmit = document.getElementById('editProfBtn')
+  let editProfileForm = document.getElementById('addProfileDetails')
+console.log(editProfileForm.children)
+  if(editProfileForm.children[0] === editProfileSubmit){
+    console.log(editProfileForm.children[0]=== editProfileSubmit)
+    editProfileSubmit.classList.add('hidden')
+  }else {
+    editProfileSubmit.classList.remove('hidden')
+  }
+  
 
-  newP.onchange = e => {
-    newP=document.getElementById("newPassword").value;
-    confirmP =document.getElementById("confirmPassword").value;
+  /* CHANGE PASSWORD*/
+  
+
+  document.getElementById('newPWForm').onchange = e => {
+    let newP=document.getElementById("newPassword").value;
+    let confirmP =document.getElementById("confirmPassword").value;
+    let oldP=document.getElementById("oldPassword").value;
     checkForm()
   }
-  confirmP.onchange = e => {
-    newP=document.getElementById("newPassword").value;
-    confirmP =document.getElementById("confirmPassword").value;
-    checkForm()
-  }
+  
   function checkForm()
    {
-    newP = document.getElementById("newPassword").value;
-    confirmP = document.getElementById("confirmPassword").value;
-    let oldP=document.getElementById("oldPassword").value;
 
     if(oldP!=""&&newP!=""&&confirmP!="")
     {
@@ -142,8 +146,9 @@
  let myProposals = document.querySelector('.myProposals')
  let likedProposals = document.querySelector('.likedProposals')
  
-
-
+ let profileNavigationItems = document.getElementsByClassName('profNav')
+ let profileNavItems = Array.from(profileNavigationItems)
+ 
  function showProfileContent(){
      profileNavItems[0].classList.add('showContent')
      profileNavItems[1].classList.remove('showContent')
@@ -163,7 +168,7 @@
 
  function showProposalContent(){
    profileNavItems[0].classList.remove('showContent')
-   profileNavItems[1].classList.remove('showContent')
+   profileNavItems[1].classList.add('showContent')
    //profileNavItems[2].classList.add('showContent')
    myProposals.classList.remove('hidden')
    likedProposals.classList.remove('hidden')
@@ -173,16 +178,6 @@
   // createCommunity.classList.add('hidden')
  }
 
- let profileNavigationItems = document.getElementsByClassName('profNav')
- let profileNavItems = Array.from(profileNavigationItems)
- profileNavItems.forEach(item => {
-   if( profileNavItems.indexOf(item) === 0){
-     
-   } else if (profileNavItems.indexOf(profileNavItems) === 1){
-     
-   } else if (profileNavItems.indexOf(profileNavItems) === 2){
-     
-   }
- })
+
 
    

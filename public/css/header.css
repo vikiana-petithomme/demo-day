@@ -21,14 +21,14 @@ header img {
 }
 
 header .button {
-    font-size: 1.5rem;
+    font-size: 2rem;
     background: #ffde59;
     color: black;
     padding-left: 10%;
     padding-right: 10%;
     padding-top: 3%;
     padding-bottom: 3%;
-    width: 187px;
+    width: 177px;
     display: flex;
     border-radius: 40px;
     margin: 0;
@@ -43,7 +43,7 @@ section.account {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    gap: 2%;
+    gap: -11%;
 }
 
 div.avatar {
@@ -59,6 +59,7 @@ header {
     flex-direction: row;
     flex-wrap: wrap;
     padding: 9px 25px;
+    border-bottom: 4px groove rgb(210, 233, 154);
 }
 
 
@@ -66,6 +67,5 @@ div.w-24.rounded-full.ring.ring-primary.ring-offset-base-100.ring-offset-2 {
     display: flex;
     justify-content: flex-end;
 }
-
 
 

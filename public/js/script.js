@@ -41,6 +41,7 @@ let mainF = (e) => {
 
   window.addEventListener("load", mainF);
  
+
 /* CREATE PROPOSAL FORM TOGGLE */
 
  console.log()
@@ -89,13 +90,45 @@ sendFile = function(file){
   request.open('POST','proposal/createProposal' )
   request.send(formData)
 }*/
+// create new category
+const createProposalForm = document.getElementById('createProposal')
+
+document.getElementById('propImgField').addEventListener('click', openImgFileUpload)
+
+function openImgFileUpload(){
+  document.getElementById('imageUpload').click()
+}
+
+document.getElementById('matrlsField').addEventListener('click', openMtrlsFileUpload)
+
+function openMtrlsFileUpload(){
+  document.getElementById('extraMtrls').click()
+}
+
+createProposalForm.onchange = e => {
+  yesnoCheck()
+}
+
+function yesnoCheck() {
+  if (document.getElementById("otherCat").selected)  {
+      document.getElementById("addCategory").classList.remove('hidden');
+  } else {
+      document.getElementById("addCategory").classList.add('hidden');
+  }
+}
+
+// submit both forms at once with one button 
+submitForms = function(){
+  document.getElementById("ifYes").submit();
+  document.getElementById("createProposal").submit();
+}
 
 // preview proposal thumbnail pic
 let setPropImg =  document.getElementById('imageUpload')
 
 setPropImg.onchange = e => {
   previewFile()
-} 
+}   
 
 
 let addSupplements =  document.getElementById('extraMtrls')
@@ -163,4 +196,34 @@ function previewFile() {
   } else {
     preview.src = "";
   }
+}
+
+// Liking a Proposal
+
+let likeBtns = document.querySelectorAll('#upVote')
+
+Array.from(likeBtns).forEach(btn => {
+  console.log(btn)
+
+  btn.addEventListener('click', function(e){
+    console.log('you are trying to like this proposal')
+    let thisButton  = e.target
+    console.log(thisButton)
+    thisButton.classList.toggle('liked')
+  })
+})
+
+const getTopProposals = document.getElementById('top')
+const getNewProposals = document.getElementById('new')
+
+getTopProposals.addEventListener('click', navSwitch)
+getNewProposals.addEventListener('click', navSwitchBack)
+
+function navSwitch(){
+  getTopProposals.classList.add('bold')
+  getNewProposals.classList.remove('bold')
+}
+function navSwitchBack(){
+  getTopProposals.classList.remove('bold')
+  getNewProposals.classList.add('bold')
 }

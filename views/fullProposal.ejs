@@ -2,13 +2,16 @@
 <%- include('partials/header') -%>
 <div class="fullProposal">
     <section id="fullPropInfo">
-      <img id="fullPropImg" src="<%=proposal.image%>">
-      <h3 id="propName"><%=proposal.name.toUpperCase()%></h3>
-      <span ><%=proposal.blurb%></span>
+      <section class="propHeading">
+        <img id="fullPropImg" src="<%=proposal.image%>">
+        <h3 id="propName"><%=proposal.name.toUpperCase()%></h3>
+        <span id="fullProbBlurb" ><%=proposal.blurb%></span>
+
+      </section>
       <h5>Why is this proposal idea important?</h5>
       <span><%=proposal.impact%></span>
       <h5>Stakeholders</h5>
-      <span><%=proposal.partners%></span>
+      <span><%=proposal.stakeholders%></span>
       <h5>Full Description</h5>
       <span><%=proposal.description%></span>
       <h5>Additional Information</h5>
@@ -29,23 +32,39 @@
       <section id="propComments">
         <h5>Comments</h5>
         <% if (comments.length === 0 ) { %>
-         <p> Be the first one to comment.</p>
+         <p> Be the first one to comment!</p>
         <% } %>
+          <form action="/comments/postComment/<%=proposal.id%>" method="POST">
+            <textarea id="comments" name="text"></textarea>
+            <button class="button small comment" type="submit">Comment</button>
+          </form>
         <ul class="comments">
-          <% for(let i=0; i<comments.length; i++) %> 
+          <% for (let i= 0; i < comments.length; i++) { %> 
           <li class="comment">
-            <a href="#" title="View this user profile" class="photo"><img src="https://placehold.it/32x32" alt="Kasper"></a>
+            <a href="#" title="View this user profile" class="photo">
+              <% if(users[i].id === comments[i].user) {%>
+                <img src="<%=users[i].avatar%>">
+              <%}%> 
+            </a>
             <div class="meta">Kasper | 2012.07.24 14:58 <a class="reply">Reply</a></div>
             <div class="body"><%=comments[i].text%></div>
           </li>
+          <% } %>
         </ul>
       </section>
 
     </section>
     <section id="propSidebar">
       <!-- LIKE BUTTON -->
-      <form action="/proposal/likeProposal/<%=proposal._id%>?_method=PUT"  method="POST" class="voting">
-        <button id="upVote" class="material-symbols-outlined"> favorite </button>
+      <form action="/proposal/likeProposal/<%=proposal._id%>?_method=PUT"  method="POST" class="voting full">
+        <button id="upVoteFull" class="material-symbols-outlined"> favorite </button>
+        <label for="upVoteFull">
+          <% if(proposal.supporters.includes(user.id)){ %>
+            LIKED
+          <%} else { %>
+            LIKE
+          <% }%> 
+        </label>
       </form>
       <section id="propSettings">
         <!-- PROP COST -->
@@ -71,10 +90,24 @@
           </a>
           <span id="authorUsername"><%=author.userName%></span>
         </section>
-        <span id="author"><%=author.fullName%></span>
-        <span id="authorLocation"><%=author.location%></span>
-        <span id="authorWeb"><%=author.website%></span>
-        <span id="authorBio"><%=author.bio%></span>
+        <section class="authorInfo">
+          
+          <span id="author"><%=author.fullName%></span>
+          <% if(author.bio == null ||  author.bio == undefined) {%>
+            <span id="authorBio"><%=author.bio%></span>
+          <%}%> 
+          <% if(author.location == null ||  author.location == undefined) {%>
+            <span id="authorLocation"><i class="fa-solid fa-location-pin"></i><%=author.location%></span>
+          <%}%>
+          <% if(author.website == null ||  author.weabsite == undefined){ %>
+            <a id="authorWeb"href="<%=author.website%>">
+              <i class="fa-solid fa-link"></i>
+            </a>
+          <%}%>
+          
+          
+          
+        </section>
         
       </section>
 

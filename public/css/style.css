@@ -1,11 +1,60 @@
 * {
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-size:62.5%;
     /* font-weight: bold; */
     /* font-size: 1.5rem; */
+    /* font-family: 'Barlow', sans-serif; */
 }
+a {
+    text-decoration: none;
+}
+input[type="file"]::file-upload-button {
+    background:#006400;
+    color:white;
+  
+  }
 
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    }
+/* FILE UPLOAD BUTTON */
+.customFileUpload {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 50%;
+    float:left;
+    margin-bottom: 5%;
+  }
+  input[type="file"] {
+    position: absolute;
+    z-index: -1;
+    top: 10px;
+    left: 8px;
+    font-size: 17px;
+    color: #b8b8b8;
+  }
+  .button-wrap {
+    position: relative;
+  }
+  .fileButton {
+    display: inline-block;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #006400;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  div.button-wrap span {
+    font-size:2rem;
+  }
 /* PROPOSAL FEED LAYOUT*/
 div.main {
     display: grid;
@@ -18,8 +67,6 @@ div.main {
         "footer footer footer";
     padding: 0px .5%;
 }
-
-
 
 .hidden {
     display: none;
@@ -40,17 +87,18 @@ div.main {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Barlow', sans-serif;
 }
 
 .small.button {
     border-radius: 20px;
     background: #006400;
     color: white;
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     padding-top: 1%;
     padding-bottom: 1%;
     /* align-self: center; */
-    width:15%;
+    width:18%;
     margin-bottom: 2%;
     font-weight: bold;
     text-align: center;
@@ -59,10 +107,14 @@ div.main {
     justify-content: center;
 }
 
-.material-symbols-outlined {
+/*.material-symbols-outlined {
     margin-right: 2%;
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 48
-}
+    font-variation-settings: 
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}*/
 
 
 
@@ -167,13 +219,11 @@ nav li {
     float: left;
     font-size: 2.5rem;
     border-left: 2px solid;
-    padding: 0px 23px;
+    padding: 13px 23px;
     margin-top: 3%;
     margin-bottom: 3%;
-}
-
-li#new {
-    font-weight:bold;
+    color:black;
+    font-family: 'Barlow', sans-serif
 }
 
 .main nav li:hover {
@@ -182,7 +232,7 @@ li#new {
 /* FEED SIDE BAR */
 
 a#addProposal.button{
-    font-size:2.5rem;
+    font-size: 3rem;
 }
 div.sidebar {
     grid-area: sidebar;
@@ -201,6 +251,9 @@ section#filters {
     margin-bottom: 10%;
 }
 
+nav li#top.bold, nav li#new.bold{
+    font-weight: 900;
+}
 section#stats {
     background-color: #ffde59;
     padding: 3%;
@@ -211,11 +264,13 @@ section#stats {
 
 #filters label, select {
     font-size: 3rem;
+    font-family: 'Barlow', sans-serif;
 }
 
 select {
     width: 100%;
-    border: 2px solid green;
+    border: 3px solid green;
+    box-shadow: 1px 1px;
 }
 
 #propNum {
@@ -254,30 +309,33 @@ section.proposal {
 }
 
 .proposal h3#title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #006400;
     float:left;
     margin:0px;
+    font-family: 'Barlow', sans-serif;
 }
 
 .proposal span#cost {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #006400;
     float:left;
     margin-left: 5%;
+    font-family: 'Barlow', sans-serif;
 }
 
 .proposal span#shortDes{
     width:100%;
     float:left;
     margin-top:2%;
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     margin-bottom: 1%;
+    /* font-family: 'Barlow', sans-serif; */
 }
 
 .button#fullPropButton {
-    width: 20%;
-    font-size: 1.25rem;
+    width: 25%;
+    font-size: 1.5rem;
     padding: 1%;
     background: #006400;
     float:left;
@@ -289,12 +347,13 @@ section.proposal {
 
 section.details {
     border-right: 2px solid green;
-    width: 90%;
+    width: 85%;
+    padding-right:3%;
 }
 
 form.voting {
-    width: 10%;
-    display:flex;
+    width: 15%;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -304,11 +363,28 @@ button#upVote {
     font-size: 3rem;
     background: transparent;
     border: 0px;
+    
+}
+
+button#upVoteFull {
+    color: #006400;
+    font-size: 8rem;
+    background: transparent;
+    border: 0px;
+    /* margin-right:auto; */
+    /* margin-left:auto; */
+}
+
+form.voting label {
+    font-size:5rem;
+    font-weight: bold;
+    font-family: 'Barlow', sans-serif
 }
 
 #numLikes {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color:#006400;
+    font-family: 'Barlow', sans-serif;
 }
 
 /* PROPOSAL CREATION FORM */
@@ -337,22 +413,23 @@ fieldset#proposalInfo {
 legend {
     text-align: center;
     color: darkgreen;
-    font-weight: bold;
-    font-size: 2.5rem;
+    font-weight: 900;
+    font-size: 4rem;
+    font-family: 'Barlow', sans-serif;
 }
 
 button.submit {
     margin-left: auto;
     margin-right: auto;
     grid-area: submit;
-    font-size: 1.5rem;
+    font-size: 2rem;
     background: darkgreen;
     color: white;
     font-weight: bold;
     padding: .5%;
 }
 
-fieldset#proposalInfo textarea {
+fieldset#proposalInfo textarea, div#div_editor1 {
     resize: none;
     overflow: scroll;
     font-size: 1.5rem;
@@ -367,16 +444,18 @@ fieldset#proposalInfo label {
 
 input, textarea, option {
     margin-bottom: 0;
-    border: 2px solid darkgreen;
+    border: 3px solid darkgreen;
+    box-shadow: 1px 1px;
     font-size: 2.5em;
 }
 
-
-
-#proposalInfo .material-symbols-outlined {
+#proposalInfo {
     margin-left: 2%;
 }
 
+form#addCategory{
+    grid-area: category;
+}
 div.extraInfo {
     grid-area:fileUploads;
 }
@@ -385,8 +464,6 @@ div.extraInfo {
 span#upldErrMsg{
     font-size:1.6rem;
     color:#006400;
-    margin-top:1%;
-    margin-bottom:1%;
 }
 #propNameLabel {
     grid-area: nameLabel;
@@ -417,11 +494,10 @@ span#upldErrMsg{
 }
 
 
-
 #propCost {
     grid-area: cost;
     text-align: left;
-    font-size: 4.25rem;
+    font-size: 4rem;
     margin: 2% 0% 2% 0%;
 }
 
@@ -450,7 +526,7 @@ span#upldErrMsg{
 }
 
 fieldset#proposalInfo img {
-    width: 18%;
+    width: 30%;
     float:left;
     margin-top:1.5%;
     margin-bottom:1%;
@@ -461,20 +537,25 @@ input[type="file"]{
     width: 100%;
     font-size: 1.5rem;
     background-color:white;
+    height: 3.5rem;
 }
 
 section#fileUploads {
-    width: 82%;
+    width: 60%;
     float:left;
     padding-left: 3.5%;
     margin-top:2%;
+}
+
+fieldset#proposalInfo label#catLabel{
+    margin-top: 3%;
 }
 @media screen and (max-width: 2500px) {
     fieldset#proposalInfo {
         grid-template-rows: .25fr .5fr 3fr .25fr 1fr .25fr 1.25fr .25fr 3fr .25fr;
     }
 
-    input, textarea , option {
+    input, textarea, div#div_editor1 , option {
         font-size: 1.5rem;
         border-radius: 5px;
     }
@@ -495,18 +576,32 @@ div.fullProposal {
 }
 
 img#fullPropImg {
-    width:400px;
-    margin-left:auto;
-    margin-right:auto;
+    width:50%;
+    margin-bottom:2%;
+}
+
+section.propHeading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 3%;
+    background-color: #2a602a;
+    border-radius: 20px;
+}
+
+span#fullProbBlurb{
+    color: #f2fbdc;
 }
 
 section#fullPropInfo {
     grid-area: info;
     background-color:#f2fbdc;
-    padding:1% 2% 1% 2%;;
+    padding: 5%;
     border-radius: 20px;
     box-shadow: 5px 5px #006400;
-    
+    overflow: hidden;
 }
 
 button.button#btnPreview {
@@ -531,12 +626,20 @@ section#propSettings{
     padding:4% 8% 4% 8%;
 }
 
-
+form.voting.full{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
 section#fullPropInfo h3{
-    font-weight:bold;
-    font-size: 4rem;
-    color:#006400;
-    margin: 2% 0% 2% 0%;
+    font-weight:900;
+    /* text-decoration: underline; */
+    font-size: 6rem;
+    color: #f3fadc;
+    margin: 0% 0% 2% 0%;
+    font-family: 'Barlow', sans-serif;
 }
 
 section#fullPropInfo h5{
@@ -551,7 +654,8 @@ section#fullPropInfo h5{
 }
 
 section#fullPropInfo span{
-    font-size: 1.25rem;
+    font-size: 1.75rem;
+    text-align: center;
 }
 
 #pdf_container { 
@@ -575,7 +679,14 @@ h5#authorSec{
     font-size:4rem;
     margin-top:0px;
     margin-bottom:3%;
+    text-align:center;
 
+}
+
+h4#propCategory{
+    text-align: left;
+    font-size: 2rem;
+    font-weight: lighter;
 }
 
 a.publicProfile{
@@ -601,6 +712,7 @@ section.authorWidget{
     flex-wrap: wrap;
     justify-content: center;
     flex-direction: column;
+    margin-bottom: 3%;
 }
 span#author{
     font-size:2rem;
@@ -615,6 +727,164 @@ span#authorUsername{
     text-align: center;
     margin-top:1%;
 }
+
+section.authorInfo{
+    display:flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+
+}
+section.authorInfo > span, section.authorInfo a {
+    width:100%;
+    font-size:1.5rem;
+    margin-bottom:2%;
+
+}
+a#authorWeb {
+    font-size:1rem;
+    margin-left:50%;
+    margin-right:50%;
+}
+
+i.fa-location-pin , i.fa-link{
+    font-size:2rem;
+    margin-right:5%;
+    color:#006400;
+}
+
+#authorLocation{
+    text-align: center;
+}
+
+span#authorBio{
+    text-align: center;
+}
+
+section#propComments p {
+    font-size:1.5rem;
+}
+textarea#comments{
+    width:100%;
+    resize:none;
+    margin-bottom:2%;
+    line-height:3rem;
+}
+    /* COMMENTS */
+        .comments:after { border-color: #fff; }
+        .comments:before { background-color: #006400; }
+        .comments .comment {
+        background: #fff;
+        border-radius: 10px;
+        font-size: 2rem;
+        padding: 10px 15px;
+        }
+        .comments [class*="level-"] .photo:before { background-color: #fff; }
+        .comments .meta { color: #ccc; }
+        .comments .meta a { color: inherit; }
+        .comments .meta a:hover { color: #006400; }
+        .comments .body { color: #888; }
+
+        /**
+        * Comments Thread
+        */
+        .comments {
+        list-style-type: none;
+        padding: 5px 0 0 46px;
+        position: relative;
+        margin: 0 0 0 12px;
+        }
+        .comments:before,
+        .comments .comment,
+        .comments .comment:after,
+        .comments .comment:before,
+        .comments .photo img,
+        .comments [class*="level-"] .photo:before {
+        box-shadow: 0 1px 3px rgba(0,0,0,.4);
+        }
+        .comments:after,
+        .comments:before {
+        display: block;
+        content: '';
+        position: absolute;
+        }
+        .comments:before {
+        border-radius: 0 0 5px 5px;
+        height: 100%;
+        width: 8px;
+        left: 0;
+        top: 0;
+        }
+        .comments:after {
+        box-shadow: 0 1px 3px rgba(9, 76, 41, 0.4), 0 1px 3px rgba(9, 76, 41, 0.4) inset;
+        border-width: 4px;
+        border-style: solid;
+        border-radius: 18px;
+        height: 10px;
+        width: 10px;
+        left: -5px;
+        top: -16px;
+        z-index: -1;
+        }
+        .comments .comment {
+        margin-bottom: 10px;
+        position: relative;
+        }
+        .comments .comment:after,
+        .comments .comment:before {
+        border-radius: 10px;
+        background-color: #fff;
+        position: absolute;
+        display: block;
+        content: '';
+        }
+        .comments .comment:after {
+        width: 12px;
+        height: 12px;
+        left: -14px;
+        top: 7px;
+        }
+        .comments .comment:before {
+        width: 5px;
+        height: 5px;
+        left: -22px;
+        top: 16px;
+        }
+        .comments .photo {
+        position: absolute;
+        left: -60px;
+        top: 2px;
+        }
+        .comments .photo img {
+        border: 1px solid #006400;
+        border-radius: 32px;
+        overflow: hidden;
+        }
+        .comments .meta { margin-bottom: 5px; }
+        .comments .meta .reply { display: none; float: right; }
+        .comments .comment:hover .reply { display: block; }
+        .comments [class*="level-"] .photo:before {
+        display: block;
+        content: '';
+        position: absolute;
+        margin-top: -2px;
+        height: 4px;
+        width: 20px;
+        left: -10px;
+        top: 50%;
+        z-index: -1;
+        }
+        .comments .level-2 { margin-left: 30px; }
+        .comments .level-3 { margin-left: 50px; }
+        .comments .level-4 { margin-left: 70px; }
+        .comments .level-5 { margin-left: 90px; }
+        .comments .level-6 { margin-left: 110px; }
+        .comments .level-3 .photo:before { width: 40px; left: -30px;}
+        .comments .level-4 .photo:before { width: 60px; left: -50px;}
+        .comments .level-5 .photo:before { width: 80px; left: -70px;}
+        .comments .level-6 .photo:before { width: 100px; left: -90px;}
+
+
+
 /* PROFILE DASHBOARD PAGE */
 
 div.mainProfile {
@@ -640,6 +910,7 @@ div.mainProfile {
     padding: 5%;
     flex-wrap: wrap;
     align-content: flex-start;
+    box-shadow: 5px 5px #f9c90a;
 }
 
 form.passwordReset{
@@ -654,33 +925,34 @@ form.passwordReset{
     background-color: #f3fadc;
     border-radius: 20px;
     padding:3%;
-
+    box-shadow: 5px 5px #479447;
 }
 
+
+
 .mainProfile section.sidebar > span {
-    border-bottom: 2px solid #ffff06;
+    border-bottom: 2px solid #f9c90a;
     margin-bottom: 5%;
     padding:5% 2% 5% 2%;
     font-weight: bold;
     width:100%;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
+    font-family: 'Barlow', sans-serif;
 }
 .mainProfile section.sidebar > span.showContent{
-    background-color: #f5f568;
-
+    background-color: #f9c90a;
 }
 .mainProfile section.sidebar > span:hover {
-    background-color: #f5f568;
-    
+    background-color: #f9c90a;
 }
 
 .mainProfile section.sidebar li {
-    border-bottom: 2px solid #ffff06;
+    border-bottom: 2px solid #f9c90a;
     margin-bottom: 5%;
     padding:5% 2% 5% 2%;
     list-style-type: none;
     width:100%;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 }
 
 .mainProfile section.sidebar li.showContent {
@@ -697,18 +969,21 @@ section.userIDCard {
     width:100%;
     background-color: #e4f577;
     border-radius: 20px;
+    box-shadow: 5px 5px #798626;
     overflow: hidden;
     padding:3%;
+    display: flex;
+    align-items: center;
 }
 
-section.myProposals{
+section.myProposals, section.likedProposals{
     grid-area: content1;
     background-color: #f3fadc;
     border-radius: 20px;
-    margin-bottom: 3%;
-    overflow: hidden;
+    margin-bottom: 0%;
+    /* overflow: hidden; */
     padding: 3%;
-
+    box-shadow: 5px 5px #479447;
 }
 
 section.likedProposals{
@@ -718,14 +993,23 @@ section.likedProposals{
 
 }
 
+button#editProfBtn.hidden{
+    display:none;
+}
+
     /* PROFILE ID CARDS */
 
     div.profileAvatar {
-        margin-right: 3%;
-        margin-bottom:3%;
+        /* margin-right: 3%; */
+        /* margin-bottom:3%; */
+        /* margin-left:3%; */
         width: 30%;
         float:left;
         clear:both;
+        margin: 3%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     input#imgupload{
@@ -735,9 +1019,8 @@ section.likedProposals{
     .profileAvatar .rounded-full img {
         border-radius: 100%;
         border: 2px solid green;
-        width: 260px;
+        width: 241px;
         background-color: white;
-        
     }
     
     p#user-name{
@@ -745,6 +1028,7 @@ section.likedProposals{
         font-weight:bold;
         margin-bottom:2%;
         margin-top: 0px;
+        font-family: 'Barlow', sans-serif;
     }
     h3#username{
         font-size: 3rem;
@@ -756,21 +1040,27 @@ section.likedProposals{
     section.profileID{
         display:flex;
         flex-direction:column;
+        /* align-content: center; */
+        /* float:left; */
+        flex-wrap: wrap;
+        width:60%;
     }
 
     input#dob {
-        width:20%;
+        width: 32%;
     }
     label#webLabel{
         width:100%;
+        margin-bottom: 2%;
     }
     input#userWeb{
         width:100%;
         margin-bottom: 1%;
     }
     input[type=text]#location{
-        width: 30%;
+        width: 36%;
         margin-bottom:1.5%;
+        margin-right: 0;
     }
 
     section.extraInfo{
@@ -791,11 +1081,11 @@ section.likedProposals{
         margin-right: 1%;
     }
     button#OpenImgUpload.button {
-        width:30%;
+        width:50%;
         padding:1%;
         background:#006400;
         margin:0px 0px 0px 0px;
-        font-size: 1.25rem;
+        font-size: 1.75rem;
         margin-bottom: 2%;
         float:left;
     }
@@ -810,7 +1100,7 @@ section.likedProposals{
     }
 
     label#locLabel{
-        margin-left: 1.5%;
+        margin-left: 8%;
         margin-right: 1%;
     }
 
@@ -824,7 +1114,7 @@ section.likedProposals{
     span.userInfo#userID {
         font-size:1.5rem;
         margin-bottom: 2%;
-    }
+    }   
     span.userInfo {
         font-size:1.5rem;
         margin-bottom:.75%;
@@ -832,14 +1122,25 @@ section.likedProposals{
     form.passwordReset span.sectionTitle#newPW {
         font-size:2.5rem;
         margin-bottom:3%;
-        font-weight: bold;
+        font-weight: 900;
+        font-family: 'Barlow', sans-serif;
+        font-family: 'Barlow', sans-serif;
     }
 
+    section.likedProposals h5 {
+        font-size: 4rem;
+        margin: 0px 0px 2% 0px;
+        text-align: center;
+        color: #006400;
+        font-family: 'Barlow', sans-serif;
+    }
+    
     h5.sectionTitle{
         font-size:2.5rem;
         margin-bottom:3%;
-        font-weight: bold;
+        font-weight: 900;
         text-align:center;
+        font-family: 'Barlow', sans-serif;
     }
 
     button#avatarSave{
@@ -880,6 +1181,7 @@ section.likedProposals{
         margin: 0px 0px 2% 0px;
         text-align: center;
         color:#006400;
+        font-family: 'Barlow', sans-serif;
     }
 
 

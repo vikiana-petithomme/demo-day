@@ -79,6 +79,7 @@ exports.postSignup = (req, res, next) => {
   });
 
   let defaultAvatar = '../imgs/defaultAvatar.jpeg'
+  
   const user = new User({
     userName: req.body.userName,
     email: req.body.email,

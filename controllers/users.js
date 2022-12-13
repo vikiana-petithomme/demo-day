@@ -1,7 +1,8 @@
 const cloudinary = require("../middleware/cloudinary");
 const Users = require("../models/User");
-const Category = require("../models/category");
+const Category = require("../models/Tags");
 const Proposals = require("../models/proposals");
+var ObjectId = require('mongodb').ObjectID;
 
 
 module.exports = {
@@ -10,13 +11,13 @@ module.exports = {
         try {
         
           const authoredproposals = await Proposals.find({ author: req.user.id });
-          
+          const likedProposals = await Proposals.find({ supporters: ObjectId(req.user.id) });
           await Users.findById(req.params.id, function(err, foundUser){ 
             if (err) {
                 req.flash('error', 'FIX IT!')
                 res.redirect('/')
             } 
-            res.render('profileDashboard.ejs', { proposals: authoredproposals, user: foundUser});
+            res.render('profileDashboard.ejs', { proposals: authoredproposals, likedProposals: likedProposals, user: foundUser});
           });
         } catch (err) {
           console.log(err);
@@ -62,14 +63,11 @@ module.exports = {
     try {
       await Users.findOneAndUpdate(
         { _id: req.params.id },
-        {$unset:
-          {
-            location: true,
-          }
+        {
+          $set:{location: null}
         }
       ).exec(function(err, result){
           console.log("user profile updated"  + req.user);
-          return result;
           res.redirect(`../${req.user.id}`);
       })
     } catch (err) {
@@ -80,14 +78,11 @@ resetSharedSiteDetails: async (req, res) => {
   try {
     await Users.findOneAndUpdate(
       { _id: req.params.id },
-      {$unset:
-        {
-          'website': true,
-        }
+      {
+        $set:{website: null}
       }
     ).exec(function(err, result){
         console.log("user profile updated"  + req.user);
-        return result;
         res.redirect(`../${req.user.id}`);
     })
   } catch (err) {
@@ -98,14 +93,11 @@ resetSharedSiteDetails: async (req, res) => {
     try {
       await Users.findOneAndUpdate(
         { _id: req.params.id },
-        {$unset:
-          {
-            'bio': true,
-          }
+        {
+          $set:{bio: null}
         }
       ).exec(function(err, result){
           console.log("user profile updated"  + req.user);
-          return result;
           res.redirect(`../${req.user.id}`);
       })
     } catch (err) {
