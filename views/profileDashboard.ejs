@@ -53,6 +53,7 @@
     <section class="editProfile">
         <section class="extraInfo">
             <form action="/users/updateUser/<%=user.id%>?_method=put" name="newAvatar" method="POST" id="addProfileDetails">
+                <h5 class="sectionTitle">FINISH PROFILE</h5>
                 <% if( user.DOB == null ||  user.DOB == undefined){%>
                     <label for="dob">Date of Birth</label>
                     <input type="date" id="dob" name="DOB">
