@@ -1,3 +1,6 @@
 sendgrid.env
 sendgrid.env
 sendgrid.env
+config/.env 
+package.json
+package-lock.json

@@ -60,5 +60,5 @@ let richTextDesc = document
 console.log(richTextDesc);
 
 var xmlString = richTextDesc;
-var doc = new DOMParser().parseFromString(xmlString, "text/xml");
+var doc = new DOMParser().parseFromString(xmlString, "text/xml").firstChild;
 console.log(doc);
