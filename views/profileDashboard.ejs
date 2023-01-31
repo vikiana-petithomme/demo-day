@@ -1,154 +1,184 @@
 <%- include('partials/head') -%>
 <%- include('partials/header') -%>
 <div class="mainProfile">
-    <section class="sidebar">
-        <span class="profNav profile">PROFILE</span>
-        <!--<span class="profNav communities">COMMUNITIES</span>
+  <section class="sidebar">
+    <span class="profNav profile">PROFILE</span>
+    <!--<span class="profNav communities">COMMUNITIES</span>
             <ul>
                 <li>MY COMMUNITIES</li>
                 <li>START A COMMUNITY</li>
             </ul> -->
 
-     <span class="profNav proposals">PROPOSALS</span>
-            <ul>
-                <li>MY PROPOSALS</li>
-                <li>LIKED PROPOSALS</li>
-            </ul> 
+    <span class="profNav proposals">PROPOSALS</span>
+    <ul>
+      <li>MY PROPOSALS</li>
+      <li>LIKED PROPOSALS</li>
+    </ul>
+  </section>
+  <section class="userIDCard">
+    <div id="<%=user.id%>" class="profileAvatar">
+      <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+        <img id="avatar" src="<%=user.avatar%>" />
+      </div>
+    </div>
+    <section class="profileID">
+      <span>
+        <p id="user-name"><%=user.fullName.toUpperCase()%></p>
+      </span>
+      <h3 id="username"><%=user.userName%></h3>
+      <span class="userInfo" id="userID">User#<%=user.id%></span>
+      <span></span>
+      <form action="/users/changeAvatar/<%=user.id%>?_method=PUT" enctype='multipart/form-data' name="newAvatar" method="POST">
+        <button class="button" id="OpenImgUpload">Upload New Profile Image</button>
+        <input type="file" id="imgupload" name="avatar" />
+        <button id="avatarSave" class="small button" type="submit">Save</button>
+      </form>
+
+      <% if( !(user.location == "" || user.location == null ||  user.location == undefined)){%>
+      <span class="userInfo" id="userLoc">
+        <span class="profilelabel">Location:</span>
+        <%=user.location%>
+        <form action="/users/updateUser/location/<%=user.id%>?_method=PUT" method="POST">
+          <button type="submit"><span class="material-symbols-outlined">
+              edit
+            </span></button>
+        </form>
+      </span>
+      <% } %>
+      <% if( !(user.website == "" ||  user.website === null || user.website == undefined)){%>
+      <span class="userInfo" id="sharedWedbsite">
+        <span class="profilelabel">Website:</span>
+        <%=user.website%>
+        <form action="/users/updateUser/site/<%=user.id%>?_method=PUT" method="POST">
+          <button type="submit"><span class="material-symbols-outlined">
+              edit
+            </span></button>
+        </form>
+      </span>
+
+      <% } %>
+      <% if( !(user.bio == "" || user.bio == null ||  user.bio == undefined)){%>
+      <span class="userInfo" id="userBio">
+        <span class="profilelabel">Bio:</span>
+        <%=user.bio%>
+        <form action="/users/updateUser/bio/<%=user.id%>?_method=PUT" method="POST">
+          <button type="submit"><span class="material-symbols-outlined">
+              edit
+            </span></button>
+        </form>
+      </span>
+      <% } %>
     </section>
-    <section class="userIDCard">
-        <div  id="<%=user.id%>" class="profileAvatar">
-            <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-              <img id="avatar" src="<%=user.avatar%>" />
-            </div>
-        </div>
-        <section class="profileID">
-            <span><p id="user-name"><%=user.fullName.toUpperCase()%></p></span>
-            <h3 id="username"><%=user.userName%></h3>
-            <span class="userInfo" id="userID">User#<%=user.id%></span>
-            <span></span>
-            <form action="/users/changeAvatar/<%=user.id%>?_method=PUT" enctype='multipart/form-data' name="newAvatar" method="POST">
-                <button class="button" id="OpenImgUpload">Upload New Profile Image</button>
-                <input type="file" id="imgupload" name="avatar" /> 
-                <button id="avatarSave" class="small button" ="submit">Save</button>
-            </form>
-            
-            <% if( !(user.location == "" || user.location == null ||  user.location == undefined)){%>
-                <span class="userInfo"id="userLoc">Location: <%=user.location%><i class="fa-solid fa-pen"></i></span> 
-            <% } %> 
-            <% if( !(user.website == "" ||  user.website === null || user.wesbite == undefined)){%>
-                <span class="userInfo"id="sharedWedbsite">Website: <%=user.website%><i class="fa-solid fa-pen"></i></span> 
-                
-            <% } %>
-            <% if( !(user.DOB == "" || user.bio == null ||  user.bio == undefined)){%>
-                <span class="userInfo"id="userBio">Bio: <%=user.bio%><i class="fa-solid fa-pen"></i></span> 
-                
-            <% } %> 
+  </section>
 
+  <section class="editProfile">
+    <section class="extraInfo" id="<%=user.id%>">
+      <h5 class="sectionTitle" id="finishProfLabel">Finish Your Profile</h5>
+
+      <% if( user.location == "" || user.location === null ||  user.location === undefined){%>
+      <form action="/users/updateUser/location/<%=user.id%>?_method=put" name="newLocation" method="POST" id="newLocation">
+        <section id="locationInput">
+          <label for="location" id="locLabel">
+            <span class="material-symbols-outlined">
+              location_on</span>Homebase
+          </label>
+          <input type="text" id="location" name="location" placeholder="City, State">
         </section>
-            
+      </form>
+      <% } %>
+      <% if( user.website == "" || user.website === null ||  user.website === undefined){%>
+      <form action="/users/updateUser/site/<%=user.id%>?_method=put" name="newSite" method="POST" id="newSite">
+        <label id="webLabel" for="userWeb">Choose a Website to Share with other Users</label>
+        <input type="url" id="userWeb" name="website" placeholder="Website Link">
+      </form>
+      <% } %>
+      <% if( user.bio == "" || user.bio === null ||  user.bio === undefined){%>
+      <form action="/users/updateUser/bio/<%=user.id%>?_method=put" name="newBio" method="POST" id="newBio">
+        <label id="bio" for="bioText">Bio</label>
+        <textarea type="text" id="bioText" name="bio" placeholder="Tell everyone a little bit about yourself!"></textarea>
+      </form>
+      <% } %>
+      <button class="small button" id="editProfBtn" type="submit"> Save </button>
+
+      </form>
     </section>
-
-    <section class="editProfile">
-        <section class="extraInfo">
-            <form action="/users/updateUser/<%=user.id%>?_method=put" name="newAvatar" method="POST" id="addProfileDetails">
-                <h5 class="sectionTitle">Finish Your Profile</h5>
-
-                <% if( user.DOB == "" || user.DOB === null ||  user.DOB === undefined){%>
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" name="DOB">
-                <% } %> 
-                <% if( user.location == "" || user.location === null ||  user.location === undefined){%>
-                    <label for="location" id="locLabel"><span class="material-symbols-outlined">
-                        location_on
-                        </span>Homebase</label>
-                    <input type="text" id="location" name="location" placeholder="City, State">
-                <% } %> 
-                <% if( user.website == "" || user.website === null ||  user.website === undefined){%>
-                    <label id="webLabel" for="userWeb">Website</label>
-                    <input type="url" id="userWeb" name="website" placeholder="Website Link">
-                <% } %> 
-                <% if( user.bio == "" || user.bio === null ||  user.bio === undefined){%>
-                    <label id="bio" for="bioText">Bio</label>
-                    <textarea type="text" id="bioText" name="bio" placeholder="Tell everyone a little bit about yourself!"></textarea>
-                <% } %> 
-                    <button class="small button" id="editProfBtn" type="submit"> Save </button>
-                       
-            </form>        
-        </section>
-        <form class="passwordReset" action="/users/newPassword/<%=user.id%>?_method=PUT" method="POST" id="newPWForm" >
+    <!--<form class="passwordReset" action="/users/newPassword/<%=user.id%>?_method=PUT" method="POST" id="newPWForm" >
         <span  id="newPW" class="sectionTitle"> Choose a New Password</span>
 
             <input type="password" id="oldPassword" placeholder="Old Password">
             <input type="password" id="newPassword" placeholder="New Password" name="newPassword">
-            <input type="password" id="comfirmPassword" placeholder="Confirm New Password">
+            <input type="password" id="confirmPassword2" placeholder="Confirm New Password">
             <button class="small button"type="submit">Change Password</button>
+        </form>-->
+  </section>
+  <section class="myProposals hidden">
+    <h5>MY PROPOSALS</h5>
+    <% for( let i = 0; i < proposals.length; i++ ) { %>
+    <section class="proposal">
+      <section class="details">
+        <h3 id="title"><%=proposals[i].name.toUpperCase()%></h3>
+        <span id="cost">$<%=proposals[i].cost%></span>
+        <span id="shortDes"><%=proposals[i].blurb%></span>
+        <a href="/proposal/<%=proposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
+        <form action="/proposal/delete/<%=proposals[i]._id%>?_method=delete" method="POST">
+          <button type="submit" id="deletePropButton" class=" red button">Delete Proposal</button>
         </form>
+      </section>
+      <form action="/proposal/likeProposal/<%=proposals[i]._id%>?_method=PUT" method="POST" class="voting">
+        <button id="upVote" class="material-symbols-outlined"> favorite </button>
+        <span id="numLikes"><%=proposals[i].likes%></span>
+      </form>
     </section>
-    <section class="myProposals hidden">
-        <h5>MY PROPOSALS</h5>
-        <% for( let i = 0; i < proposals.length; i++ ) { %>
-            <section class="proposal" >
-                <section class="details">
-                    <h3 id="title"><%=proposals[i].name.toUpperCase()%></h3>
-                    <span id="cost">$<%=proposals[i].cost%></span>
-                    <span id="shortDes"><%=proposals[i].blurb%></span>
-                    <a href="/proposal/<%=proposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
-                </section>
-                <form action="/proposal/likeProposal/<%=proposals[i]._id%>?_method=PUT"  method="POST" class="voting">
-                    <button  id="upVote" class="material-symbols-outlined"> favorite </button>
-                    <span id="numLikes"><%=proposals[i].likes%></span>
-                </form>
-              </section>
-        <% } %>
+    <% } %>
+  </section>
+  <section class="likedProposals hidden">
+    <h5>LIKED PROPOSALS</h5>
+    <% for( let i = 0; i < likedProposals.length; i++ ) { %>
+    <section class="proposal">
+      <section class="details">
+        <h3 id="title"><%=likedProposals[i].name.toUpperCase()%></h3>
+        <span id="cost">$<%=likedProposals[i].cost%></span>
+        <span id="shortDes"><%=likedProposals[i].blurb%></span>
+        <a href="/proposal/<%=likedProposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
+      </section>
+      <form action="/proposal/likeProposal/<%=likedProposals[i]._id%>?_method=PUT" method="POST" class="voting">
+        <button id="upVote" class="material-symbols-outlined"> favorite </button>
+        <span id="numLikes"><%=likedProposals[i].likes%></span>
+      </form>
     </section>
-    <section class="likedProposals hidden">
-        <h5 >LIKED PROPOSALS</h5>
-        <% for( let i = 0; i < likedProposals.length; i++ ) { %>
-            <section class="proposal" >
-                <section class="details">
-                    <h3 id="title"><%=likedProposals[i].name.toUpperCase()%></h3>
-                    <span id="cost">$<%=likedProposals[i].cost%></span>
-                    <span id="shortDes"><%=likedProposals[i].blurb%></span>
-                    <a href="/proposal/<%=likedProposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
-                </section>
-                <form action="/proposal/likeProposal/<%=likedProposals[i]._id%>?_method=PUT"  method="POST" class="voting">
-                    <button  id="upVote" class="material-symbols-outlined"> favorite </button>
-                    <span id="numLikes"><%=likedProposals[i].likes%></span>
-                </form>
-              </section>
-        <% } %>
+    <% } %>
+  </section>
+  <section class="createCommunity hidden">
+    <form action="/communities/createCommunity" method="POST" enctype='multipart/form-data'>
+      <input type="text" placeholder="Community Name" name="cName">
+      <input type="text" placeholder="Location" name="cLocation">
+      <input type="file" name="cImage">
+      <input type="text" placeholder="Mission Statement" name="cMission">
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+  <section class="accordion hidden">
+    <div class="communityID">
+      <img src="https://f9ir.github.io/acc/acc/img/Location-Pin.png" alt="">
+      <h3>Location</h3>
+    </div>
+    <section class="communityStats">
+      <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
     </section>
-    <section class="createCommunity hidden">
-        <form action="/communities/createCommunity" method="POST" enctype='multipart/form-data'>
-            <input type="text" placeholder="Community Name" name="cName">
-            <input type="text" placeholder="Location" name="cLocation">
-            <input type="file" name="cImage">
-            <input type="text" placeholder="Mission Statement" name="cMission">
-            <button type="submit">Submit</button>
-        </form>
+    <div class="communityID">
+      <img src="https://f9ir.github.io/acc/acc/img/Location-Pin.png" alt="">
+      <h3>Location</h3>
+    </div>
+    <section class="communityStats">
+      <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
     </section>
-    <section class="accordion hidden">
-            <div class="communityID">
-                <img src="https://f9ir.github.io/acc/acc/img/Location-Pin.png" alt="">
-                <h3>Location</h3>
-            </div>
-            <section class="communityStats">
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
-            </section>
-            <div class="communityID">
-                <img src="https://f9ir.github.io/acc/acc/img/Location-Pin.png" alt="">
-                <h3>Location</h3>
-            </div>
-            <section class="communityStats">
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
-            </section>
-            <div class="communityID">
-                <img src="https://f9ir.github.io/acc/acc/img/Location-Pin.png" alt="">
-                <h3>Location</h3>
-            </div>
-            <section class="communityStats">
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
-            </section>
+    <div class="communityID">
+      <img src="https://f9ir.github.io/acc/acc/img/Location-Pin.png" alt="">
+      <h3>Location</h3>
+    </div>
+    <section class="communityStats">
+      <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</p>
     </section>
+  </section>
 </div>
 <%- include('partials/footer') -%>

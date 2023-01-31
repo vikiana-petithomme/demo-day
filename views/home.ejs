@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CONCUR</title>
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="../imgs/CONCUR.png"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-      crossorigin="anonymous"
-    />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf_viewer.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://kit.fontawesome.com/c69b3a1c40.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fileuploadbutton.css" />
-    <link rel="stylesheet" href="/css/header.css">
-    
-  </head>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONCUR</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../imgs/CONCUR.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf_viewer.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tiny.cloud/1/94wo0s47mkc7i4rcldf7qskej6xosjybrkmuhug8wbw8i9j5/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="https://kit.fontawesome.com/c69b3a1c40.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/fileuploadbutton.css" />
+  <link rel="stylesheet" href="/css/header.css">
+
+</head>
+
 <body>
   <div class="container">
     <%- include('partials/header') -%>
@@ -36,8 +29,12 @@
     <div class="main">
       <nav>
         <ul>
-          <a href="../home/top"><li id="top">TOP</li></a>
-          <a href="../home"><li id="new">NEW</li></a>
+          <a href="../home/top">
+            <li id="top">TOP</li>
+          </a>
+          <a href="../home">
+            <li id="new">NEW</li>
+          </a>
         </ul>
       </nav>
       <div class="sidebar">
@@ -47,110 +44,164 @@
         </a>
         <section id="filters">
           <label for="categoryFilter">Category</label>
-          <form action="get">
-  
+          <form>
+            <select id="categoryFilter">
+              <option default value="All">All</option>
+              <% for (let i=0; i < category.length; i++) { %>
+                <option id="filterBy" value="<%=category[i].name%>"><%=category[i].name%></option>
+              <% } %>
+            </select>
           </form>
-          <select id="categoryFilter">
-            <% for (let i=0; i < category.length; i++) { %>
-              <option><%=category[i].name%></option>
-            <% } %>
-          </select>
-          <!-- MIN PRICE & MAX PRICE FILTER --> 
           
+        <!-- MIN PRICE & MAX PRICE FILTER -->
+
         </section>
         <section id="stats">
-          <h4><span id="propNum"><%=proposals.length%></span> PROPOSALS</h4>
+          <% if(proposals.length) %> 
+          <h4><span id="propNum"><%=total%></span> PROPOSALS</h4>
+          <h4><span id="propAuthorsNum"><%=authors.length%></span> AUTHORS</h4>
         </section>
       </div>
       <div id="proposals">
         <form action="proposal/createProposal" method="POST" id="createProposal" class="hidden form" enctype='multipart/form-data'>
           <fieldset id="proposalInfo">
             <legend>NEW PROPOSAL</legend>
-          
-              <label for="propName" id="propNameLabel">Proposal Name </label>
-                <input type="text" name="proposalName" id="propName" required>
-              <label for="propCost" id="propCostLabel">Proposal Cost</label>
-                <input type="number" name="cost" id="propCostInput" required>
 
-                <div class="extraInfo">
-                  <img id="propImgPreview" src="https://via.placeholder.com/150">
-                  <section id="fileUploads">                     
-                    
-                    <div class="customFileUpload" id="propImgField">
-                      <div class="button-wrap">
-                        <span>Thumbnail Image</span>
-                        <label class="fileButton" for="upload">Upload File</label>
-                        <input id="imageUpload" name="propIMG" type="file">
-                      </div>
-                    </div>
-                    <div class="customFileUpload" id="matrlsField">
-                      <div class="button-wrap">
-                        <span>Additional Materials</span>
-                        <label class="fileButton" for="upload">Upload File</label>
-                        <input id="extraMtrls" type="file" name="additionalMaterials" multiple>
-                      </div>
-                    </div>
-                    <!--<label class="custom-file-upload" for="imageUpload">Thumbnail Picture
+            <label for="propName" id="propNameLabel">Proposal Name </label>
+            <input type="text" name="proposalName" id="propName" required>
+            <label for="propCost" id="propCostLabel">Proposal Cost</label>
+            <input type="number" name="cost" id="propCostInput" required>
+
+            <div class="extraInfo">
+              <img id="propImgPreview" src="https://via.placeholder.com/150">
+              <section id="fileUploads">
+                <div class="customFileUpload" id="propImgField">
+                  <div class="button-wrap">
+                    <span>Thumbnail Image</span>
+                    <label class="fileButton" for="upload">Upload File</label>
+                    <input id="imageUpload" name="propIMG" type="file">
+                  </div>
+                </div>
+                <div class="customFileUpload" id="matrlsField">
+                  <div class="button-wrap">
+                    <span>Additional Materials</span>
+                    <label class="fileButton" for="upload">Upload File</label>
+                    <input id="extraMtrls" type="file" name="additionalMaterials" multiple>
+                  </div>
+                </div>
+                <!--<label class="custom-file-upload" for="imageUpload">Thumbnail Picture
                       <input type="file" id="imageUpload" ></label>-->
-                      <span id="upldErrMsg">MAX FILE SIZE: 10MB</span>
-                    
-                      <!--<label class="custom-file-upload" for="extraMtrls">Additional Materials
-                      <input type="file" id="extraMtrls" name="additionalMaterials" multiple></label>-->
-                      <label for="category" id="catLabel">Impact Area/Category</label>
-                      <select name="category" id="category">
-                        <% for (let i=0; i < category.length; i++) { %>
-                          <option value="<%=category[i].name%> " id="otherCat"><%=category[i].name%></option>
-                        <% } %>
-                          <option>Other</option>
-                      </select>
-                  </section>
-              </div>
-              <label for="propBlurb" id="propBlurbLabel">Proposal Short Description</label>
-                <textarea name="blurb" id="propBlurb" required></textarea>
-              <label for="propImpact" id="propImpactLabel">Why is this important/needed?</label>
-                <textarea name="impact" id="propImpact" required></textarea>
-              <label for="propPartners" id="propPartnersLabel">Who are the stakeholders? <span class="material-symbols-outlined">
-                help
-                </span></label>
-                <textarea name="partners" id="propPartners" required></textarea>
-              
-            <label for="propFull" id="propFullLabel">Full Proposal Description <span class="material-symbols-outlined">
-              help
-              </span></label>
-              <textarea name="description" id="propFull" required></textarea>
+                <span id="upldErrMsg">MAX FILE SIZE: 10MB</span>
 
-            <button id="propSubmit" class="submit button small" type="submit" onclick="submitForms()">SUBMIT</button>
+                <!--<label class="custom-file-upload" for="extraMtrls">Additional Materials
+                      <input type="file" id="extraMtrls" name="additionalMaterials" multiple></label>-->
+                <label for="category" id="catLabel">Impact Area/Category</label>
+                <select name="category" id="category">
+                  <% for (let i=0; i < category.length; i++) { %>
+                  <option value="<%=category[i].name%> " id="otherCat"><%=category[i].name%></option>
+                  <% } %>
+                  <option value="other">Other</option>
+                </select>
+                <section id="createCategory" class="hidden">
+                  <label for="newCategory">New Category Name</label>
+                  <input type="text" id="newCategory" name="newCategory" /><br />
+                </section>
+              </section>
+            </div>
+            <label for="propBlurb" id="propBlurbLabel">Proposal Short Description</label>
+            <textarea type="text" name="blurb" id="propBlurb" required></textarea>
+
+            <label for="propImpact" id="propImpactLabel">Why is this important/needed?</label>
+            <textarea type="text" name="impact" id="propImpact" required></textarea>
+            <label for="propPartners" id="propPartnersLabel">Who are the stakeholders? <span class="material-symbols-outlined">
+                help
+              </span></label>
+            <textarea type="text" name="partners" id="propPartners" required></textarea>
+
+            <label for="propFull" id="propFullLabel">Full Proposal Description <span class="material-symbols-outlined">
+                help
+              </span></label>
+            <textarea name="description" id="propFull"></textarea>
+            <button id=" propSubmit" class="submit button small red" formaction="/proposals/saveDraft" formmethod="POST" formenctype="multipart/form-data">SAVE DRAFT</button>
+            <button id="propSubmit" class="submit button small" type="submit" ">SUBMIT</button>
+
           </fieldset>
+          
         </form>
         <section id="submittedProposals">
-          <% for (let i=0; i < proposals.length; i++) { %>
-            <section class="proposal" id="<%=proposals[i]._id%>">
-              <section class="details">
-                <h3 id="title"><%=proposals[i].name.toUpperCase()%></h3>
-                <span id="cost">$<%=proposals[i].cost%></span>
-                <span id="shortDes"><%=proposals[i].blurb%></span>
-                <a href="/proposal/<%=proposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
+          <% console.log('this is the length of the proposal list ' + proposals.length) %>
+              <% for (let i=0; i < proposals.length; i++) { %>
+              <% if(proposals[i].published === true){ %>
+              <section class="proposal" id="<%=proposals[i]._id%>">
+                <section class="details">
+                  <h3 id="title"><%=proposals[i].name.toUpperCase()%></h3>
+                  <span id="cost">$<%=proposals[i].cost%></span>
+                  <span id="shortDes"><%=proposals[i].blurb%></span>
+                  <a href="/proposal/<%=proposals[i]._id%>" id="fullPropButton" class="button">See full proposal</a>
+                </section>
+                <form action="/proposal/likeProposal/<%=proposals[i]._id%>?_method=PUT" method="POST" class="voting">
+                  <button id="upVote" class="material-symbols-outlined"> favorite </button>
+                  <span id="numLikes"><%=proposals[i].likes%></span>
+                </form>
+              </section>
+              <%}%> 
+            <% } %>
+            <section class="endOfList">
+              <% if (proposals.length === 0) { %>
+              <p>There are no proposals at the moment. Create one now!</p>
+              <% } else if (pages > 0 && page == pages){ %>
+                <p>There are no more proposals. Create one now!</p>
+              <% } else if (pages > 0){ %>
+              <% } else { %>
+                <p>There are no more proposals. Create one now!</p>
+              <% } %>
             </section>
-            <form action="/proposal/likeProposal/<%=proposals[i]._id%>?_method=PUT"  method="POST" class="voting">
-              <button  id="upVote" class="material-symbols-outlined">
-                favorite </button>
-              <span 
-                </span>
-              <span id="numLikes"><%=proposals[i].likes%></span>
-            </form>
-            <form action="/categories/newCategory" method="POST" id="addCategory" class="hidden">
-              <label for="newCategory">New Category Name</label> 
-              <input type="text" id="newCategory" name="newCategory" /><br />
-            </form>
-            
-            <!--<section class="ranking">
-              <span class="material-symbols-outlined">
-                arrow_upward </span>
-              <span class="material-symbols-outlined">
-                  arrow_downward</span>
-            </section>--> 
-          
         </section>
-        <% } %>
+
+       
+      </div>
+      <div class="pagination">
+       <% if (pages > 0) { %>
+        <ul class="pagination text-center hidden">
+          <% console.log(Number(page)) %>
+          <% if (Number(page) == 1) { %>
+              <li class="disabled"><a>First</a></li>
+          <% } else { %>
+              <li><a href="?page=1">First</a></li>
+          <% } %>
+          <% var i = (Number(page) > 3 ? Number(page) - 2 : 1) %>
+          <% if (i !== 1) { %>
+              <li class="disabled"><a>...</a></li>
+          <% } %>
+          <% for ( ; i <= (Number(page) + 3) && i < pages; i++) { %>
+              <% if (i == page && i !== 1) { %>
+                  <li class="active"><a><%= i %></a></li>
+              <% } else if (i !== 1){ %>
+                  <li><a href="?page=<%= i %>"><%= i %></a></li>
+              <% } %>
+              <% if (i == Number(page) + 4 && i < pages) { %>
+                  <li class="disabled"><a>...</a></li>
+              <% } %>
+          <% } %>
+          <% if (page == pages) { %>
+              <li class="disabled hidden"><a>Last</a></li>
+          <% } else { %>
+              <li><a href="?page=<%=pages%>">Last</a></li>
+          <% } %>
+      </ul>
+      <% } %>
       </div>
       <%- include('partials/footer') -%>
+
+
+
+
+
+
+
+
+
+
+
+
+     

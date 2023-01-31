@@ -4,17 +4,29 @@ const upload = require("../middleware/multer");
 const proposalController = require("../controllers/proposals");
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
- 
 //Post Routes - simplified for now
 router.get("/:id", ensureAuth, proposalController.getFullProposal);
 
-router.post("/createProposal", upload.fields([
-       {name:'propIMG',maxCount:1},
-       {name: 'additionalMaterials', maxCount:5},
-    ]), proposalController.createProposal);
+router.post(
+  "/createProposal",
+  upload.fields([
+    { name: "propIMG", maxCount: 1 },
+    { name: "additionalMaterials", maxCount: 5 },
+  ]),
+  proposalController.createProposal
+);
 
-router.put("/likeProposal/:id", proposalController.likeProposal);   
+router.post(
+  "/saveDraft",
+  upload.fields([
+    { name: "propIMG", maxCount: 1 },
+    { name: "additionalMaterials", maxCount: 5 },
+  ]),
+  proposalController.createProposal
+);
 
-router.delete("/deleteProposal/:id", proposalController.deleteProposal);
+router.put("/likeProposal/:id", proposalController.likeProposal);
+
+router.delete("/delete/:id", proposalController.deleteProposal);
 
 module.exports = router;
